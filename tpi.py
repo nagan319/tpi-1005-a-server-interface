@@ -216,3 +216,10 @@ def find_device() -> str | None:
         if p.vid == 0x0403 and p.pid == 0x6015:
             return p.device
     return None
+
+
+def find_all_devices() -> list[str]:
+    """Return all FTDI FT230X serial ports on this machine."""
+    import serial.tools.list_ports
+    return [p.device for p in serial.tools.list_ports.comports()
+            if p.vid == 0x0403 and p.pid == 0x6015]
